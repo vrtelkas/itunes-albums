@@ -4,7 +4,6 @@ import ListItem from '@mui/material/ListItem';
 import axios from 'axios';
 import styled from 'styled-components';
 
-// Define your styled components here
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -18,16 +17,20 @@ const List = styled.ul`
   margin: 20px 0;
 `;
 
-const Itunes = () => {
-  const [list, setList] = React.useState(['A', 'B', 'C', 'D', 'E']);
-  const [albumList, setAlbumList] = React.useState([]);
-  const [term, setTerm] = React.useState('');
+interface Result {
+  collectionName: string;
+}
+
+const Itunes: React.FC = () => {
+  const [list, setList] = React.useState<string[]>(['A', 'B', 'C', 'D', 'E']);
+  const [albumList, setAlbumList] = React.useState<string[]>([]);
+  const [term, setTerm] = React.useState<string>('');
 
   const searchAppleMusic = async () => {
     if(term !== '') {
       try {
         const response = await axios.get(`https://itunes.apple.com/search?term=${term}`);
-        let collections = response.data.results.map((result: any) => result.collectionName);
+        let collections = response.data.results.map((result: Result) => result.collectionName);
         collections = [...new Set(collections)].sort();
 
         const newList = collections.slice(0, 5);
