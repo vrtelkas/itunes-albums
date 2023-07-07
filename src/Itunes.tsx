@@ -31,6 +31,7 @@ const Itunes = () => {
         collections = [...new Set(collections)].sort();
 
         const newList = collections.slice(0, 5);
+        setList(['A', 'B', 'C', 'D', 'E']);
         setAlbumList(newList);
       } catch (error) {
         console.error(error);
